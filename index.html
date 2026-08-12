@@ -178,7 +178,7 @@ students:Array.from({length:32},(_,i)=>({name:"Nama Siswa "+(i+1),image:""})),
 schedule:Array.from({length:9},(_,i)=>({jam:"Jam "+(i+1),Senin:"",Selasa:"",Rabu:"",Kamis:"",Jumat:""})),gallery:[{title:"Kenangan 1",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 2",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 3",text:"Tambahkan cerita untuk kenangan ini.",image:""}]};
 
 let data;
-try{data=JSON.parse(localStorage.getItem("kelasModernV3"))||DEFAULT}catch(e){data=DEFAULT}
+try{data=JSON.parse(localStorage.getItem("kelasModernV4"))||DEFAULT}catch(e){data=DEFAULT}
 if(!Array.isArray(data.gallery)) data.gallery=DEFAULT.gallery.map(x=>({...x}));
 data.gallery=data.gallery.map((g,i)=>typeof g==="string"?{title:"Kenangan "+(i+1),text:"Tambahkan cerita untuk kenangan ini.",image:""}:{title:g.title||("Kenangan "+(i+1)),text:g.text||"",image:g.image||""});
 
