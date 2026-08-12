@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Website Resmi 12D</title>
+<style>
+:root{
+ --primary:#7567e8;--secondary:#25c7a4;--ink:#171827;--muted:#777b91;
+ --bg:#f7f7fb;--card:#fff;--line:#e8e8f0;--dark:#10111b;
+ --shadow:0 20px 60px rgba(25,25,55,.10)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.app{height:100vh;width:100%;position:relative;overflow:hidden}
+.progress{position:fixed;top:0;left:0;height:4px;width:100%;z-index:1000;background:rgba(255,255,255,.16)}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.45s}
+.counter{position:fixed;right:24px;top:20px;z-index:900;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);padding:9px 14px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:82px 7vw 110px;opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .42s ease,transform .42s ease,visibility .42s}
+.page.active{opacity:1;visibility:visible;transform:none;z-index:2}
+.page-inner{max-width:1160px;margin:auto;min-height:100%;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:900;color:var(--primary);margin-bottom:13px}
+h1,h2,h3{letter-spacing:-.04em}.title{font-size:clamp(38px,5vw,64px);line-height:1;margin-bottom:15px}.desc{max-width:680px;color:var(--muted);line-height:1.7}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.btn{border:0;border-radius:14px;padding:13px 20px;font-weight:800;transition:.2s}
+.btn:hover{transform:translateY(-2px)}.primary{background:var(--primary);color:#fff;box-shadow:0 12px 30px rgba(117,103,232,.25)}
+.dark{background:var(--dark);color:#fff}.light{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.hero{color:#fff;background:linear-gradient(120deg,rgba(12,13,27,.84),rgba(40,32,78,.55)),var(--hero) center/cover no-repeat,linear-gradient(135deg,#191a2a,#7769e9)}
+.hero .page-inner{align-items:center;text-align:center}.hero .eyebrow{color:#dcd8ff}
+.hero h1{font-size:clamp(58px,11vw,122px);line-height:.88;max-width:1000px}.hero .desc{color:#e8e8f2;font-size:clamp(17px,2.4vw,23px);margin-top:24px}
+.hero .actions{justify-content:center}.glass{padding:9px 15px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border-radius:999px;margin-bottom:25px;font-size:11px;font-weight:800;letter-spacing:1.5px}
+.teacher{display:grid;grid-template-columns:minmax(310px,400px) 1fr;gap:60px;align-items:center;margin-top:28px}
+.teacher-photo{width:100%;aspect-ratio:1/1.12;border-radius:34px;overflow:hidden;background:#ececf5;box-shadow:var(--shadow);border:8px solid #fff;display:flex;align-items:center;justify-content:center;color:#9295a8}
+.teacher-photo img{width:100%;height:100%;object-fit:cover}.teacher-card{background:#fff;border:1px solid var(--line);border-radius:30px;padding:44px;box-shadow:var(--shadow)}
+.teacher-card h3{font-size:38px;margin-bottom:12px}.teacher-card p{color:var(--muted);line-height:1.75}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}.management-card,.student{background:#fff;border:1px solid var(--line);border-radius:22px;padding:13px;box-shadow:0 8px 30px rgba(20,20,50,.045);transition:.25s}.management-card:hover,.student:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.management-card{display:flex;align-items:center;gap:13px}.small-photo{width:70px;height:70px;border-radius:18px;overflow:hidden;background:#f0f0f7;flex:none;display:flex;align-items:center;justify-content:center;color:#999;font-size:10px;font-weight:800}.small-photo img{width:100%;height:100%;object-fit:cover}.role{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--primary);font-weight:900}.student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}.student-photo{aspect-ratio:1.05;border-radius:17px;overflow:hidden;background:#f0f0f7;display:flex;align-items:center;justify-content:center;color:#999;font-size:10px;font-weight:800;margin-bottom:9px}.student-photo img{width:100%;height:100%;object-fit:cover}.student b{font-size:14px}.student span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.schedule-wrap{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:auto}.schedule{width:100%;min-width:850px;border-collapse:separate;border-spacing:0}.schedule th,.schedule td{padding:15px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;font-size:12px}.schedule th{background:#fafafd;font-weight:900}.schedule th:last-child,.schedule td:last-child{border-right:0}.schedule tr:last-child td{border-bottom:0}.schedule .break{background:#fff4d7;color:#8e6a00;font-weight:900}.schedule .break-row td{padding:17px}.schedule .break-row th{background:#fffdf7}.schedule .time{width:90px;background:#f7f7fb;font-weight:900}
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}.info-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;min-height:190px}.icon{font-size:30px;margin-bottom:15px}.info-card p{color:var(--muted);line-height:1.6;font-size:14px;margin-top:8px}
+.interactive{cursor:pointer;transform-origin:center;will-change:transform}.info-panel{display:none;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:var(--shadow);animation:panelIn .32s ease}
+.info-panel.show{display:block}.info-panel h3{font-size:28px;margin-bottom:8px}.info-panel p{color:var(--muted);line-height:1.7}.contact-panel{background:var(--dark);color:#fff}.contact-panel .eyebrow{color:#9f94ff}.contact-panel .contact-card{background:rgba(255,255,255,.06)}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.gallery-detail-photo{width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#ececf4;display:flex;align-items:center;justify-content:center;color:#999;font-size:11px;font-weight:800;margin-top:25px}
+.gallery-detail-photo img{width:100%;height:100%;object-fit:cover}
+.final-official{margin-top:18px;text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:900;color:#e8e8f2}.interactive:hover{transform:translateY(-7px) scale(1.025);box-shadow:0 24px 55px rgba(25,25,55,.14)}
+@keyframes cardPulse{0%{transform:scale(1)}45%{transform:scale(1.055)}100%{transform:scale(1)}}
+.pulse{animation:cardPulse .42s ease}
+.gallery-number-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.gallery-number{min-height:230px;border:1px solid var(--line);background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;box-shadow:0 12px 35px rgba(25,25,55,.06);transition:.28s;cursor:pointer}
+.gallery-number:hover{transform:translateY(-8px) scale(1.02);box-shadow:var(--shadow)}
+.gallery-number .number{font-size:70px;font-weight:900;line-height:.85;letter-spacing:-.07em;color:var(--primary)}
+.gallery-number .gallery-title{font-size:22px;font-weight:850;letter-spacing:-.03em}
+.gallery-number .open-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:1.3px}
+.gallery-detail .detail-box{background:#fff;border:1px solid var(--line);border-radius:30px;padding:48px;box-shadow:var(--shadow);margin-top:28px}
+.gallery-detail .detail-number{font-size:clamp(70px,12vw,130px);font-weight:950;line-height:.8;color:var(--primary);letter-spacing:-.08em}
+.gallery-detail .detail-title{font-size:clamp(35px,5vw,62px);margin-top:22px}
+.gallery-detail .detail-text{color:var(--muted);line-height:1.8;max-width:750px;margin-top:15px}
+.gallery-detail .detail-box .actions{margin-top:35px}
+.gallery-editor-row{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.gallery-editor-row .remove-gallery{margin-top:8px}
+@media(max-width:700px){.gallery-number-grid{grid-template-columns:1fr}.gallery-number{min-height:180px}.gallery-detail .detail-box{padding:28px}}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}.gallery div{aspect-ratio:1.2;border-radius:20px;overflow:hidden;background:#ececf4;display:flex;align-items:center;justify-content:center;color:#999;font-size:11px;font-weight:800}.gallery img{width:100%;height:100%;object-fit:cover}
+.contact{background:var(--dark);color:#fff}.contact .desc{color:#aeb2c3}.contact .eyebrow{color:#9f94ff}.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}.contact-card{padding:30px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);border-radius:24px}.contact-card small{color:#aeb2c3;letter-spacing:1.5px}.contact-card h3{font-size:27px;margin:8px 0}.contact-card p{color:#b9bcc9}
+.editor-fab{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border:0;border-radius:50%;z-index:1200;background:var(--primary);color:#fff;font-size:21px;box-shadow:0 15px 35px rgba(0,0,0,.25)}
+.editor{position:fixed;right:20px;bottom:90px;width:360px;max-height:82vh;overflow:auto;background:#fff;border-radius:25px;padding:22px;z-index:1199;box-shadow:0 25px 80px rgba(0,0,0,.25);display:none}.editor.open{display:block}.editor h2{margin-bottom:4px}.sub{font-size:12px;color:var(--muted)}.section{border-top:1px solid var(--line);margin-top:18px;padding-top:18px}.section h3{font-size:15px;margin-bottom:10px}.editor label{display:block;font-size:11px;font-weight:800;margin:9px 0 5px}.editor input,.editor textarea{width:100%;border:1px solid #ddd;border-radius:10px;padding:10px;outline:none}.editor textarea{min-height:70px;resize:vertical}.editor input[type=color]{padding:2px;height:40px}.file{display:block;background:#f4f4f8;border-radius:10px;padding:11px;text-align:center;font-size:11px;font-weight:800;cursor:pointer}.file input{display:none}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.status{font-size:11px;color:var(--secondary);min-height:16px;margin-top:8px}
+.modal{position:fixed;inset:0;background:rgba(10,10,20,.55);backdrop-filter:blur(10px);z-index:1500;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-card{width:min(390px,100%);background:#fff;border-radius:24px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.3)}.modal-card p{color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 18px}.modal-card input{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px}
+@media(max-width:900px){.teacher{grid-template-columns:280px 1fr;gap:28px}.grid3{grid-template-columns:repeat(2,1fr)}.student-grid{grid-template-columns:repeat(3,1fr)}.info-grid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.page{padding:72px 16px 100px}.counter{right:14px;top:14px}.teacher{grid-template-columns:1fr}.teacher-photo{width:min(330px,88vw);margin:auto}.teacher-card{padding:28px}.grid3,.info-grid,.contact-grid{grid-template-columns:1fr}.student-grid{grid-template-columns:repeat(2,1fr);gap:10px}.gallery{grid-template-columns:repeat(2,1fr)}.editor{left:10px;right:10px;bottom:88px;width:auto}.hero h1{letter-spacing:-3px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="progress"><i id="bar"></i></div>
+<div class="counter"><span id="num">1</span> / <span id="total">6</span></div>
+
+<section class="page hero active" id="p1">
+<div class="page-inner">
+<div class="glass">✦ WEBSITE RESMI KELAS</div>
+<div class="eyebrow">Selamat datang di</div>
+<h1 id="className">NAMA KELAS</h1>
+<p class="desc" id="classSlogan">Satu kelas, satu cerita, sejuta kenangan.</p>
+<div class="actions"><button class="btn primary" onclick="next()">Mulai Menjelajah →</button></div>
+</div></section>
+
+<section class="page" id="p2"><div class="page-inner">
+<div class="eyebrow">02 · Wali Kelas</div><h2 class="title">Orang yang selalu<br>mendukung perjalanan kami.</h2>
+<p class="desc">Kenali wali kelas yang menjadi bagian penting dari cerita kelas kami.</p>
+<div class="teacher">
+<div class="teacher-photo" id="teacherPhoto">FOTO WALI KELAS</div>
+<div class="teacher-card"><div class="eyebrow">WALI KELAS</div><h3 id="teacherName">NAMA WALI KELAS</h3><p id="teacherDesc">Tambahkan deskripsi singkat mengenai wali kelas kalian.</p></div>
+</div>
+<nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
+</div></section>
+
+<section class="page" id="p3"><div class="page-inner">
+<div class="eyebrow">03 · Keluarga Kelas</div><h2 class="title">Pengurus & 32 Siswa</h2><p class="desc">Satu kelas, banyak karakter, satu cerita yang akan selalu diingat.</p>
+<div class="grid3" id="management"></div><div class="student-grid" id="students"></div>
+<nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
+</div></section>
+
+<section class="page" id="p4"><div class="page-inner">
+<div class="eyebrow">04 · Akademik</div><h2 class="title">Jadwal Pelajaran</h2><p class="desc">Hari berada di bagian atas, sedangkan jam pelajaran berada di sebelah kiri.</p>
+<div class="schedule-wrap"><table class="schedule"><thead><tr><th class="time">Jam</th><th>Senin</th><th>Selasa</th><th>Rabu</th><th>Kamis</th><th>Jumat</th></tr></thead><tbody id="schedule"></tbody></table></div>
+<nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
+</div></section>
+
+<section class="page" id="p5"><div class="page-inner">
+<div class="eyebrow">05 · Informasi</div><h2 class="title">Semua tentang kelas kami.</h2><p class="desc">Tempat untuk pengumuman, kegiatan, prestasi, dan informasi penting lainnya.</p>
+<div class="info-grid">
+<div class="info-card interactive" onclick="pulseCard(this); showInfo('announcementPanel')"><div class="icon">📢</div><h3>Pengumuman</h3><p id="announcement">Belum ada pengumuman.</p></div>
+<div class="info-card interactive" onclick="pulseCard(this); showInfo('achievementPanel')"><div class="icon">🏆</div><h3>Prestasi & Kegiatan</h3><p id="achievement">Belum ada prestasi atau kegiatan.</p></div>
+<div class="info-card interactive" onclick="pulseCard(this); showInfo('contactPanel')"><div class="icon">📞</div><h3>Kontak</h3><p>Wali kelas dan ketua kelas.</p></div>
+</div>
+<div class="info-panel" id="announcementPanel"><div class="eyebrow">PENGUMUMAN</div><h3>Informasi Kelas</h3><p id="announcementLarge">Belum ada pengumuman.</p></div>
+<div class="info-panel" id="achievementPanel"><div class="eyebrow">PRESTASI & KEGIATAN</div><h3>Perjalanan & Pencapaian</h3><p id="achievementLarge">Belum ada prestasi atau kegiatan.</p></div>
+<div class="info-panel contact-panel" id="contactPanel"><div class="eyebrow">KONTAK KELAS</div><div class="contact-grid"><div class="contact-card"><small>WALI KELAS</small><h3 id="contactTeacher">NAMA WALI KELAS</h3><p id="teacherContact">Kontak belum diisi.</p></div><div class="contact-card"><small>KETUA KELAS</small><h3 id="contactLeader">NAMA KETUA</h3><p id="leaderContact">Kontak belum diisi.</p></div></div></div>
+<nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
+</div></section>
+
+<section class="page" id="p6"><div class="page-inner">
+<div class="eyebrow">06 · Kenangan</div><h2 class="title">Galeri Kelas</h2><p class="desc">Pilih nomor untuk membuka halaman kenangan tersebut. Kamu bisa menambah, menghapus, atau mengganti judulnya dari editor.</p>
+<div class="gallery-number-grid" id="gallery"></div>
+<nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
+</div></section>
+
+
+
+<section class="page hero final-hero" id="pFinal">
+<div class="page-inner">
+<div class="glass">✦ WEBSITE RESMI KELAS 12D</div>
+<div class="eyebrow">Terima kasih telah berkunjung</div>
+<h1 id="finalClassName">NAMA KELAS</h1>
+<p class="desc" id="finalSlogan">Satu kelas, satu cerita, sejuta kenangan.</p>
+<p class="final-official">website resmi kelas 12D</p>
+<div class="actions">
+<button class="btn light" onclick="show(6)">← Kembali</button>
+<button class="btn primary" onclick="home()">↻ Mulai dari Slide Pertama</button>
+</div>
+</div></section>
+
+<div id="galleryDetails"></div>
+
+<button class="editor-fab" onclick="openEditor()">⚙️</button>
+
+<div class="editor" id="editor">
+<h2>Editor Website</h2><p class="sub">Hanya admin yang dapat membuka editor.</p>
+<div class="section"><h3>🏫 Identitas</h3><label>Nama kelas</label><input id="eClass"><label>Slogan</label><textarea id="eSlogan"></textarea></div>
+<div class="section"><h3>🎨 Tampilan</h3><div class="row"><div><label>Warna utama</label><input type="color" id="ePrimary"></div><div><label>Warna sekunder</label><input type="color" id="eSecondary"></div></div><label class="file">🖼️ Foto kelas untuk background beranda<input type="file" accept="image/*" onchange="heroImg(event)"></label>
+<label class="file">🖼️ Foto kelas untuk background halaman terakhir<input type="file" accept="image/*" onchange="finalImg(event)"></label></div>
+<div class="section"><h3>👩‍🏫 Wali Kelas</h3><label>Nama</label><input id="eTeacher"><label>Deskripsi</label><textarea id="eTeacherDesc"></textarea><label>Kontak</label><input id="eTeacherContact"><label class="file">📷 Foto wali kelas<input type="file" accept="image/*" onchange="teacherImg(event)"></label></div>
+<div class="section"><h3>👑 Pengurus</h3><div id="mEdit"></div></div>
+<div class="section"><h3>👨‍🎓 32 Siswa</h3><div id="sEdit"></div></div>
+<div class="section"><h3>📚 Jadwal</h3><div id="jEdit"></div></div>
+<div class="section"><h3>🖼️ Galeri & Halaman Kenangan</h3>
+<p class="sub" style="margin-bottom:10px">Nomor di sini akan menjadi tombol di halaman galeri. Setiap nomor memiliki halaman sendiri.</p>
+<div id="gEdit"></div>
+<div class="row" style="margin-top:10px"><button class="btn dark" onclick="addGallery()">＋ Tambah nomor</button><button class="btn light" onclick="removeGallery()">− Hapus nomor terakhir</button></div>
+</div>
+<div class="section"><h3>📢 Informasi</h3><label>Pengumuman</label><textarea id="eAnnouncement"></textarea><label>Prestasi & kegiatan</label><textarea id="eAchievement"></textarea></div>
+<div class="section"><h3>📞 Kontak</h3><label>Nama ketua</label><input id="eLeader"><label>Kontak ketua</label><input id="eLeaderContact"></div>
+<div class="actions"><button class="btn primary" onclick="save()">💾 Simpan</button><button class="btn light" onclick="closeEditor()">Tutup</button></div><div class="status" id="status"></div>
+</div>
+
+<div class="modal" id="login">
+<div class="modal-card"><h2>🔐 Area Admin</h2><p>Masukkan kata sandi untuk membuka editor website.</p><input id="password" type="password" placeholder="Kata sandi admin" onkeydown="if(event.key==='Enter')login()"><button class="btn primary" style="width:100%" onclick="login()">Masuk</button><div class="status" id="loginStatus"></div></div>
+</div>
+</div>
+
+<script>
+const DEFAULT={
+className:"NAMA KELAS",slogan:"Satu kelas, satu cerita, sejuta kenangan.",primary:"#7567e8",secondary:"#25c7a4",heroImage:"",finalImage:"",
+teacherName:"NAMA WALI KELAS",teacherDesc:"Tambahkan deskripsi singkat mengenai wali kelas kalian.",teacherContact:"Kontak belum diisi.",teacherImage:"",
+leaderName:"NAMA KETUA",leaderContact:"Kontak belum diisi.",announcement:"Belum ada pengumuman.",achievement:"Belum ada prestasi atau kegiatan.",
+management:[["Ketua Kelas","NAMA KETUA"],["Wakil Ketua","NAMA WAKIL"],["Sekretaris 1","NAMA SEKRETARIS"],["Sekretaris 2","NAMA SEKRETARIS"],["Bendahara 1","NAMA BENDAHARA"],["Bendahara 2","NAMA BENDAHARA"]],
+students:Array.from({length:32},(_,i)=>({name:"Nama Siswa "+(i+1),image:""})),
+schedule:Array.from({length:9},(_,i)=>({jam:"Jam "+(i+1),Senin:"",Selasa:"",Rabu:"",Kamis:"",Jumat:""})),gallery:[{title:"Kenangan 1",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 2",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 3",text:"Tambahkan cerita untuk kenangan ini.",image:""}]};
+
+let data;
+try{data=JSON.parse(localStorage.getItem("kelasModernV3"))||DEFAULT}catch(e){data=DEFAULT}
+if(!Array.isArray(data.gallery)) data.gallery=DEFAULT.gallery.map(x=>({...x}));
+data.gallery=data.gallery.map((g,i)=>typeof g==="string"?{title:"Kenangan "+(i+1),text:"Tambahkan cerita untuk kenangan ini.",image:""}:{title:g.title||("Kenangan "+(i+1)),text:g.text||"",image:g.image||""});
+
+
+function esc(x){return String(x??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function render(){
+document.getElementById("className").textContent=data.className;document.getElementById("classSlogan").textContent=data.slogan;document.getElementById("finalClassName").textContent=data.className;document.getElementById("finalSlogan").textContent=data.slogan;document.getElementById("teacherName").textContent=data.teacherName;document.getElementById("teacherDesc").textContent=data.teacherDesc;document.getElementById("teacherContact").textContent=data.teacherContact;document.getElementById("contactTeacher").textContent=data.teacherName;document.getElementById("contactLeader").textContent=data.leaderName;document.getElementById("leaderContact").textContent=data.leaderContact;document.getElementById("announcement").textContent=data.announcement;document.getElementById("achievement").textContent=data.achievement;document.getElementById("announcementLarge").textContent=data.announcement;document.getElementById("achievementLarge").textContent=data.achievement;
+document.documentElement.style.setProperty("--primary",data.primary);document.documentElement.style.setProperty("--secondary",data.secondary);document.querySelector(".hero").style.setProperty("--hero",data.heroImage?`url("${data.heroImage}")`:"none");document.querySelector(".final-hero").style.setProperty("--hero",data.finalImage?`url("${data.finalImage}")`:(data.heroImage?`url("${data.heroImage}")`:"none"));
+document.getElementById("teacherPhoto").innerHTML=data.teacherImage?`<img src="${data.teacherImage}">`:"FOTO WALI KELAS";
+document.getElementById("management").innerHTML=data.management.map(x=>`<div class="management-card"><div class="small-photo">${x[2]?`<img src="${x[2]}">`:"FOTO"}</div><div><div class="role">${esc(x[0])}</div><b>${esc(x[1])}</b></div></div>`).join("");
+document.getElementById("students").innerHTML=data.students.map((x,i)=>`<div class="student"><div class="student-photo">${x.image?`<img src="${x.image}">`:"FOTO"}</div><b>${esc(x.name)}</b><span>Siswa ${i+1}</span></div>`).join("");
+document.getElementById("schedule").innerHTML=data.schedule.map((r,i)=>{
+let row=`<tr><th class="time">${esc(r.jam)}</th>${["Senin","Selasa","Rabu","Kamis","Jumat"].map(d=>`<td>${esc(r[d])}</td>`).join("")}</tr>`;
+if(i===3) row+=`<tr class="break-row"><th class="time">—</th><td class="break" colspan="5">ISTIRAHAT</td></tr>`;
+return row;
+}).join("");
+document.getElementById("gallery").innerHTML=data.gallery.map((g,i)=>`<div class="gallery-number" onclick="openGallery(${i})"><div class="number">${i+1}</div><div><div class="gallery-title">${esc(g.title)}</div><div class="open-label">Buka halaman →</div></div></div>`).join("");
+fillEditor()
+}
+function fillEditor(){
+eClass.value=data.className;eSlogan.value=data.slogan;ePrimary.value=data.primary;eSecondary.value=data.secondary;eTeacher.value=data.teacherName;eTeacherDesc.value=data.teacherDesc;eTeacherContact.value=data.teacherContact;eLeader.value=data.leaderName;eLeaderContact.value=data.leaderContact;eAnnouncement.value=data.announcement;eAchievement.value=data.achievement;
+mEdit.innerHTML=data.management.map((x,i)=>`<label>${esc(x[0])}</label><input id="mn${i}" value="${esc(x[1])}"><label class="file">📷 Foto<input type="file" accept="image/*" onchange="mImg(event,${i})"></label>`).join("");
+sEdit.innerHTML=data.students.map((x,i)=>`<label>Siswa ${i+1}</label><input id="sn${i}" value="${esc(x.name)}"><label class="file">📷 Foto siswa ${i+1}<input type="file" accept="image/*" onchange="sImg(event,${i})"></label>`).join("");
+gEdit.innerHTML=data.gallery.map((g,i)=>`<div class="gallery-editor-row"><b>Nomor ${i+1}</b><label>Judul</label><input id="gn${i}" value="${esc(g.title)}"><label>Isi halaman</label><textarea id="gt${i}">${esc(g.text)}</textarea><label class="file">📷 Pilih foto landscape<input type="file" accept="image/*" onchange="galleryImg(event,${i})"></label>${g.image?'<div class="sub" style="margin-top:6px">✓ Foto sudah dipasang</div>':''}</div>`).join("");
+jEdit.innerHTML=data.schedule.map((r,i)=>`<div style="margin-bottom:14px"><label>Jam ${i+1}</label><input id="jn${i}" value="${esc(r.jam)}">${["Senin","Selasa","Rabu","Kamis","Jumat"].map(d=>`<label>${d}</label><input id="j${i}${d}" value="${esc(r[d])}" placeholder="Mata pelajaran">`).join("")}</div>`).join("")
+}
+function read(file,cb){if(!file)return;let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(file)}
+function heroImg(e){read(e.target.files[0],x=>{data.heroImage=x;render()})}
+function finalImg(e){read(e.target.files[0],x=>{data.finalImage=x;render()})}
+function teacherImg(e){read(e.target.files[0],x=>{data.teacherImage=x;render()})}
+function mImg(e,i){read(e.target.files[0],x=>{data.management[i][2]=x;render()})}
+function sImg(e,i){read(e.target.files[0],x=>{data.students[i].image=x;render()})}
+function galleryImg(e,i){read(e.target.files[0],x=>{data.gallery[i].image=x;render();renderGalleryDetails();fillEditor()})}
+function addGallery(){data.gallery.push({title:"Kenangan "+(data.gallery.length+1),text:"Tambahkan cerita untuk kenangan ini.",image:""});render();renderGalleryDetails();fillEditor()}
+function removeGallery(){if(data.gallery.length<=1){alert("Minimal harus ada 1 nomor galeri.");return}if(confirm("Hapus nomor galeri terakhir?")){data.gallery.pop();render();renderGalleryDetails();fillEditor();show(6)}}
+
+function save(){
+data.className=eClass.value.trim()||"NAMA KELAS";data.slogan=eSlogan.value.trim();
+data.gallery.forEach((g,i)=>{g.title=document.getElementById("gn"+i).value.trim()||("Kenangan "+(i+1));g.text=document.getElementById("gt"+i).value.trim()});
+data.primary=ePrimary.value;data.secondary=eSecondary.value;data.teacherName=eTeacher.value.trim();data.teacherDesc=eTeacherDesc.value.trim();data.teacherContact=eTeacherContact.value.trim();data.leaderName=eLeader.value.trim();data.leaderContact=eLeaderContact.value.trim();data.announcement=eAnnouncement.value.trim();data.achievement=eAchievement.value.trim();
+data.management.forEach((x,i)=>x[1]=document.getElementById("mn"+i).value.trim());data.students.forEach((x,i)=>x.name=document.getElementById("sn"+i).value.trim());data.schedule.forEach((r,i)=>{r.jam=document.getElementById("jn"+i).value;["Senin","Selasa","Rabu","Kamis","Jumat"].forEach(d=>r[d]=document.getElementById("j"+i+d).value)});
+try{localStorage.setItem("kelasModernV3",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
+}
+let current=1;
+function totalVirtualPages(){return 7+data.gallery.length}
+function finalPageNumber(){return 7+data.gallery.length}
+function show(n){
+const total=totalVirtualPages(); if(n<1||n>total)return;
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+if(n<=6){document.getElementById("p"+n).classList.add("active")}
+else if(n===finalPageNumber()){document.getElementById("pFinal").classList.add("active")}
+else{
+const index=n-7; const detail=document.getElementById("galleryDetail"+index);
+if(detail){detail.classList.add("active");detail.scrollTop=0}
+}
+current=n;num.textContent=n;document.getElementById("total").textContent=total;bar.style.width=((n-1)/(total-1)*100)+"%";
+}
+function next(){if(current<6){show(current+1)}else if(current===6){show(finalPageNumber())}else if(current===finalPageNumber()){show(1)}else{show(finalPageNumber())}}
+function prev(){if(current>1&&current<=6){show(current-1)}else if(current>6&&current<finalPageNumber()){show(6)}else if(current===finalPageNumber()){show(6)}}
+function home(){show(1)}
+function goGallery(){show(6)}
+function showInfo(id){document.querySelectorAll(".info-panel").forEach(p=>p.classList.remove("show"));document.getElementById(id).classList.add("show")}
+function openGallery(i){show(7+i)}
+function pulseCard(el){el.classList.remove("pulse");void el.offsetWidth;el.classList.add("pulse");setTimeout(()=>el.classList.remove("pulse"),500)}
+function renderGalleryDetails(){
+const holder=document.getElementById("galleryDetails");
+holder.innerHTML=data.gallery.map((g,i)=>`<section class="page gallery-detail" id="galleryDetail${i}"><div class="page-inner"><div class="eyebrow">06 · Kenangan · ${i+1}</div><div class="detail-box"><div class="detail-number">${i+1}</div><h2 class="detail-title">${esc(g.title)}</h2><div class="gallery-detail-photo">${g.image?`<img src="${g.image}" alt="${esc(g.title)}">`:"FOTO LANDSCAPE"}</div><p class="detail-text">${esc(g.text).replace(/\n/g,"<br>")}</p><div class="actions"><button class="btn light" onclick="show(6)">← Kembali ke Galeri</button><button class="btn dark" onclick="show(5);showInfo('contactPanel')">Ke Kontak →</button></div></div></div></section>`).join("");
+}
+function openEditor(){login.classList.add("show");password.focus()}function login(){if(password.value==="KELAS-ADMIN-2026"){login.classList.remove("show");editor.classList.add("open");password.value="";loginStatus.textContent=""}else loginStatus.textContent="Kata sandi salah."}function closeEditor(){editor.classList.remove("open")}
+renderGalleryDetails();render();renderGalleryDetails();show(1);
+</script>
+</body>
+</html>
