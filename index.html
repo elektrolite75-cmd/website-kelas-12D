@@ -209,20 +209,20 @@ students:[
 {name:"Syalomita Lendombela",image:""}
 ],
 schedule:[
-  {jam:"Jam 1",Senin:"Biologi",Selasa:"Kimia",Rabu:"Kimia",Kamis:"Fisika",Jumat:"Pendidikan Agama Katolik dan Budi Pekerti"},
-  {jam:"Jam 2",Senin:"Biologi",Selasa:"Kimia",Rabu:"Kimia",Kamis:"Fisika",Jumat:"Pendidikan Agama Katolik dan Budi Pekerti"},
-  {jam:"Jam 3",Senin:"Pendidikan Pancasila",Selasa:"Kelas Pilihan/Keg.Kokurikuler",Rabu:"Bahasa Inggris",Kamis:"Kelas Pilihan/Keg.Kokurikuler",Jumat:"Fisika"},
-  {jam:"Jam 4",Senin:"Pendidikan Pancasila",Selasa:"Kelas Pilihan/Keg.Kokurikuler",Rabu:"Bahasa Inggris",Kamis:"Kelas Pilihan/Keg.Kokurikuler",Jumat:"Fisika"},
-  {jam:"Jam 5",Senin:"Bahasa Inggris",Selasa:"Bahasa Inggris",Rabu:"Pendidikan Jasmani, Olahraga dan Kesehatan",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
-  {jam:"Jam 6",Senin:"Bahasa Inggris",Selasa:"Bahasa Mandarin",Rabu:"Pendidikan Jasmani, Olahraga dan Kesehatan",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
-  {jam:"Jam 7",Senin:"Bahasa Inggris",Selasa:"Bahasa Mandarin",Rabu:"Matematika",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
-  {jam:"Jam 8",Senin:"Seni Budaya",Selasa:"Prakarya dan Kewirausahaan",Rabu:"Sejarah",Kamis:"Biologi",Jumat:""},
-  {jam:"Jam 9",Senin:"Seni Budaya",Selasa:"Prakarya dan Kewirausahaan",Rabu:"Sejarah",Kamis:"Biologi",Jumat:""}
+  {jam:"Jam 1",waktu:"07.30-08.15",Senin:"Biologi",Selasa:"Kimia",Rabu:"Kimia",Kamis:"Fisika",Jumat:"Pendidikan Agama Katolik dan Budi Pekerti"},
+  {jam:"Jam 2",waktu:"08.15-09.00",Senin:"Biologi",Selasa:"Kimia",Rabu:"Kimia",Kamis:"Fisika",Jumat:"Pendidikan Agama Katolik dan Budi Pekerti"},
+  {jam:"Jam 3",waktu:"09.00-09.45",Senin:"Pendidikan Pancasila",Selasa:"Kelas Pilihan/Keg.Kokurikuler",Rabu:"Bahasa Inggris",Kamis:"Kelas Pilihan/Keg.Kokurikuler",Jumat:"Fisika"},
+  {jam:"Jam 4",waktu:"09.45-10.30",Senin:"Pendidikan Pancasila",Selasa:"Kelas Pilihan/Keg.Kokurikuler",Rabu:"Bahasa Inggris",Kamis:"Kelas Pilihan/Keg.Kokurikuler",Jumat:"Fisika"},
+  {jam:"Jam 5",waktu:"11.00-11.45",Senin:"Bahasa Inggris",Selasa:"Bahasa Inggris",Rabu:"Pendidikan Jasmani, Olahraga dan Kesehatan",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
+  {jam:"Jam 6",waktu:"11.45-12.30",Senin:"Bahasa Inggris",Selasa:"Bahasa Mandarin",Rabu:"Pendidikan Jasmani, Olahraga dan Kesehatan",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
+  {jam:"Jam 7",waktu:"12.30-13.15",Senin:"Bahasa Inggris",Selasa:"Bahasa Mandarin",Rabu:"Matematika",Kamis:"Matematika",Jumat:"Kelas Pilihan/Keg.Kokurikuler"},
+  {jam:"Jam 8",waktu:"13.15-14.00",Senin:"Seni Budaya",Selasa:"Prakarya dan Kewirausahaan",Rabu:"Sejarah",Kamis:"Biologi",Jumat:""},
+  {jam:"Jam 9",waktu:"14.00-14.45",Senin:"Seni Budaya",Selasa:"Prakarya dan Kewirausahaan",Rabu:"Sejarah",Kamis:"Biologi",Jumat:""}
 ],
 gallery:[{title:"Kenangan 1",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 2",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 3",text:"Tambahkan cerita untuk kenangan ini.",image:""}]};
 
 let data;
-try{data=JSON.parse(localStorage.getItem("kelasModernV7"))||DEFAULT}catch(e){data=DEFAULT}
+try{data=JSON.parse(localStorage.getItem("kelasModernV8"))||DEFAULT}catch(e){data=DEFAULT}
 if(!Array.isArray(data.gallery)) data.gallery=DEFAULT.gallery.map(x=>({...x}));
 data.gallery=data.gallery.map((g,i)=>typeof g==="string"?{title:"Kenangan "+(i+1),text:"Tambahkan cerita untuk kenangan ini.",image:""}:{title:g.title||("Kenangan "+(i+1)),text:g.text||"",image:g.image||""});
 
@@ -264,7 +264,7 @@ data.className=eClass.value.trim()||"NAMA KELAS";data.slogan=eSlogan.value.trim(
 data.gallery.forEach((g,i)=>{g.title=document.getElementById("gn"+i).value.trim()||("Kenangan "+(i+1));g.text=document.getElementById("gt"+i).value.trim()});
 data.primary=ePrimary.value;data.secondary=eSecondary.value;data.teacherName=eTeacher.value.trim();data.teacherDesc=eTeacherDesc.value.trim();data.teacherContact=eTeacherContact.value.trim();data.leaderName=eLeader.value.trim();data.leaderContact=eLeaderContact.value.trim();data.announcement=eAnnouncement.value.trim();data.achievement=eAchievement.value.trim();
 data.management.forEach((x,i)=>x[1]=document.getElementById("mn"+i).value.trim());data.students.forEach((x,i)=>x.name=document.getElementById("sn"+i).value.trim());data.schedule.forEach((r,i)=>{r.jam=document.getElementById("jn"+i).value;["Senin","Selasa","Rabu","Kamis","Jumat"].forEach(d=>r[d]=document.getElementById("j"+i+d).value)});
-try{localStorage.setItem("kelasModernV7",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
+try{localStorage.setItem("kelasModernV8",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
 }
 let current=1;
 function totalVirtualPages(){return 7+data.gallery.length}
