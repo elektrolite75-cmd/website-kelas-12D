@@ -220,7 +220,7 @@ data.className=eClass.value.trim()||"NAMA KELAS";data.slogan=eSlogan.value.trim(
 data.gallery.forEach((g,i)=>{g.title=document.getElementById("gn"+i).value.trim()||("Kenangan "+(i+1));g.text=document.getElementById("gt"+i).value.trim()});
 data.primary=ePrimary.value;data.secondary=eSecondary.value;data.teacherName=eTeacher.value.trim();data.teacherDesc=eTeacherDesc.value.trim();data.teacherContact=eTeacherContact.value.trim();data.leaderName=eLeader.value.trim();data.leaderContact=eLeaderContact.value.trim();data.announcement=eAnnouncement.value.trim();data.achievement=eAchievement.value.trim();
 data.management.forEach((x,i)=>x[1]=document.getElementById("mn"+i).value.trim());data.students.forEach((x,i)=>x.name=document.getElementById("sn"+i).value.trim());data.schedule.forEach((r,i)=>{r.jam=document.getElementById("jn"+i).value;["Senin","Selasa","Rabu","Kamis","Jumat"].forEach(d=>r[d]=document.getElementById("j"+i+d).value)});
-try{localStorage.setItem("kelasModernV3",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
+try{localStorage.setItem("kelasModernV5",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
 }
 let current=1;
 function totalVirtualPages(){return 7+data.gallery.length}
