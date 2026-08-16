@@ -96,7 +96,6 @@ style="position:absolute !important; top:16px !important; left:20px !important; 
 </div></section>
 
 <section class="page" id="p2"><div class="page-inner">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="eyebrow">02 · Wali Kelas</div><h2 class="title">Orang yang selalu<br>mendukung perjalanan kami.</h2>
 <p class="desc">Kenali wali kelas yang menjadi bagian penting dari cerita kelas kami.</p>
 <div class="teacher">
@@ -107,21 +106,18 @@ style="position:absolute !important; top:16px !important; left:20px !important; 
 </div></section>
 
 <section class="page" id="p3"><div class="page-inner">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="eyebrow">03 · Keluarga Kelas</div><h2 class="title">Pengurus & 32 Siswa</h2><p class="desc">Satu kelas, banyak karakter, satu cerita yang akan selalu diingat.</p>
 <div class="grid3" id="management"></div><div class="student-grid" id="students"></div>
 <nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
 </div></section>
 
 <section class="page" id="p4"><div class="page-inner">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="eyebrow">04 · Akademik</div><h2 class="title">Jadwal Pelajaran</h2><p class="desc">Hari berada di bagian atas, sedangkan jam pelajaran berada di sebelah kiri.</p>
 <div class="schedule-wrap"><table class="schedule"><thead><tr><th class="time">Jam</th><th>Senin</th><th>Selasa</th><th>Rabu</th><th>Kamis</th><th>Jumat</th></tr></thead><tbody id="schedule"></tbody></table></div>
 <nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
 </div></section>
 
 <section class="page" id="p5"><div class="page-inner">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="eyebrow">05 · Informasi</div><h2 class="title">Semua tentang kelas kami.</h2><p class="desc">Tempat untuk pengumuman, kegiatan, prestasi, dan informasi penting lainnya.</p>
 <div class="info-grid">
 <div class="info-card interactive" onclick="pulseCard(this); showInfo('announcementPanel')"><div class="icon">📢</div><h3>Pengumuman</h3><p id="announcement">Belum ada pengumuman.</p></div>
@@ -135,7 +131,6 @@ style="position:absolute !important; top:16px !important; left:20px !important; 
 </div></section>
 
 <section class="page" id="p6"><div class="page-inner">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="eyebrow">06 · Kenangan</div><h2 class="title">Galeri Kelas</h2><p class="desc">Pilih nomor untuk membuka halaman kenangan tersebut. Kamu bisa menambah, menghapus, atau mengganti judulnya dari editor.</p>
 <div class="gallery-number-grid" id="gallery"></div>
 <nav class="actions"><button class="btn light" onclick="prev()">← Kembali</button><button class="btn dark" onclick="next()">Selanjutnya →</button></nav>
@@ -144,7 +139,6 @@ style="position:absolute !important; top:16px !important; left:20px !important; 
 
 
 <section class="page hero final-hero" id="pFinal">
-<img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi">
 <div class="page-inner">
 <div class="glass">✦ WEBSITE RESMI KELAS 12D</div>
 <div class="eyebrow">Terima kasih telah berkunjung</div>
@@ -239,7 +233,7 @@ schedule:[
 gallery:[{title:"Kenangan 1",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 2",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 3",text:"Tambahkan cerita untuk kenangan ini.",image:""}]};
 
 let data;
-try{data=JSON.parse(localStorage.getItem("kelasModernV17"))||DEFAULT}catch(e){data=DEFAULT}
+try{data=JSON.parse(localStorage.getItem("kelasModernV18"))||DEFAULT}catch(e){data=DEFAULT}
 if(!Array.isArray(data.gallery)) data.gallery=DEFAULT.gallery.map(x=>({...x}));
 data.gallery=data.gallery.map((g,i)=>typeof g==="string"?{title:"Kenangan "+(i+1),text:"Tambahkan cerita untuk kenangan ini.",image:""}:{title:g.title||("Kenangan "+(i+1)),text:g.text||"",image:g.image||""});
 
@@ -281,7 +275,7 @@ data.className=eClass.value.trim()||"NAMA KELAS";data.slogan=eSlogan.value.trim(
 data.gallery.forEach((g,i)=>{g.title=document.getElementById("gn"+i).value.trim()||("Kenangan "+(i+1));g.text=document.getElementById("gt"+i).value.trim()});
 data.primary=ePrimary.value;data.secondary=eSecondary.value;data.teacherName=eTeacher.value.trim();data.teacherDesc=eTeacherDesc.value.trim();data.teacherContact=eTeacherContact.value.trim();data.leaderName=eLeader.value.trim();data.leaderContact=eLeaderContact.value.trim();data.announcement=eAnnouncement.value.trim();data.achievement=eAchievement.value.trim();
 data.management.forEach((x,i)=>x[1]=document.getElementById("mn"+i).value.trim());data.students.forEach((x,i)=>x.name=document.getElementById("sn"+i).value.trim());data.schedule.forEach((r,i)=>{r.jam=document.getElementById("jn"+i).value;["Senin","Selasa","Rabu","Kamis","Jumat"].forEach(d=>r[d]=document.getElementById("j"+i+d).value)});
-try{localStorage.setItem("kelasModernV17",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
+try{localStorage.setItem("kelasModernV18",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
 }
 let current=1;
 function totalVirtualPages(){return 7+data.gallery.length}
