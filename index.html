@@ -144,9 +144,7 @@ h1,h2,h3{letter-spacing:-.04em}.title{font-size:clamp(38px,5vw,64px);line-height
 
 
 
-<section class="page hero final-hero" id="pFinal">
-  <img src="rexmundi.png"class="logo-rexmundi"alt="Logo Rex Mundi"
-<div class="page-inner">
+<section class="page hero final-hero" id="pFinal"><div class="page-inner">
 <div class="glass">✦ WEBSITE RESMI KELAS 12D</div>
 <div class="eyebrow">Terima kasih telah berkunjung</div>
 <h1 id="finalClassName">NAMA KELAS</h1>
@@ -214,7 +212,7 @@ schedule:[
 gallery:[{title:"Kenangan 1",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 2",text:"Tambahkan cerita untuk kenangan ini.",image:""},{title:"Kenangan 3",text:"Tambahkan cerita untuk kenangan ini.",image:""}]};
 
 let data;
-try{data=JSON.parse(localStorage.getItem("kelasModernV24"))||DEFAULT}catch(e){data=DEFAULT}
+try{data=JSON.parse(localStorage.getItem("kelasModernV25"))||DEFAULT}catch(e){data=DEFAULT}
 if(!Array.isArray(data.gallery)) data.gallery=DEFAULT.gallery.map(x=>({...x}));
 data.gallery=data.gallery.map((g,i)=>typeof g==="string"?{title:"Kenangan "+(i+1),text:"Tambahkan cerita untuk kenangan ini.",image:""}:{title:g.title||("Kenangan "+(i+1)),text:g.text||"",image:g.image||""});
 
@@ -256,7 +254,7 @@ data.className=eClass.value.trim()||"NAMA KELAS";data.slogan=eSlogan.value.trim(
 data.gallery.forEach((g,i)=>{g.title=document.getElementById("gn"+i).value.trim()||("Kenangan "+(i+1));g.text=document.getElementById("gt"+i).value.trim()});
 data.primary=ePrimary.value;data.secondary=eSecondary.value;data.teacherName=eTeacher.value.trim();data.teacherDesc=eTeacherDesc.value.trim();data.teacherContact=eTeacherContact.value.trim();data.leaderName=eLeader.value.trim();data.leaderContact=eLeaderContact.value.trim();data.announcement=eAnnouncement.value.trim();data.achievement=eAchievement.value.trim();
 data.management.forEach((x,i)=>x[1]=document.getElementById("mn"+i).value.trim());data.students.forEach((x,i)=>x.name=document.getElementById("sn"+i).value.trim());data.schedule.forEach((r,i)=>{r.jam=document.getElementById("jn"+i).value;["Senin","Selasa","Rabu","Kamis","Jumat"].forEach(d=>r[d]=document.getElementById("j"+i+d).value)});
-try{localStorage.setItem("kelasModernV24",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
+try{localStorage.setItem("kelasModernV25",JSON.stringify(data));render();status.textContent="✓ Tersimpan";setTimeout(()=>status.textContent="",2500)}catch(e){alert("Foto terlalu besar. Gunakan foto yang lebih kecil.")}
 }
 let current=1;
 function totalVirtualPages(){return 7+data.gallery.length}
